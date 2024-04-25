@@ -1,5 +1,5 @@
 /***************************************************************
-CSCI 240         Program 8     Spring 2024
+CSCI 240         Program 9     Spring 2024
 
 Name: Ethan Enkhtur
 
@@ -19,7 +19,8 @@ using namespace std;
 //*************** Place the class description after this line ***************
 
 class PiggyBank {
-    int numPennies, numNickels, numDimes, numQuarters;
+    private:
+        int numPennies, numNickels, numDimes, numQuarters;
 
     public: 
         PiggyBank();
@@ -33,246 +34,164 @@ class PiggyBank {
         void emptyTheBank();
 
         PiggyBank addBanks(int, int, int, int);
+        PiggyBank addBanks(PiggyBank);
         
         void addCoins(int, int, int, int);
         void addNickels(int);
         void addPennies(int);
         void addDimes(int);
         void addQuarters(int);
-        
+
         double calcBankValue();
 
+        bool isEqual(int, int, int, int);
+        bool isEqual(PiggyBank otherBank);
+
+        bool isLessThan(int, int, int, int);
+        bool isLessThan(PiggyBank otherBank);
+
+        int getCoin(int coinIndex);
+
 };
+
+void printSectionTitle(string);
 
 
 //****************************************************************************
 
 int main() {
-    //Test 1 -- default constructor and printPiggyBank
-    cout << "***** Test 1: Default Constructor and printPiggyBank *****" << endl << endl;
-    cout << fixed << setprecision(2);
+    PiggyBank firstBank = PiggyBank(12, 34, 56, 78);
+    PiggyBank secondBank = PiggyBank(23, -5, -10, 31);
+    PiggyBank thirdBank = PiggyBank(firstBank);
 
-    //create two objects using the default constructor
-    PiggyBank bank1;
-    PiggyBank bank2 = PiggyBank();
 
-    //display the two objects
-    cout << "bank1:" << endl;
+    printSectionTitle("Initial values in the bank objects");
 
-    bank1.printBank();
 
-    cout << endl << endl << "bank2:" << endl;
+    firstBank.print("Bank1 object");
+    secondBank.print("Bank2 object");
+    thirdBank.print("Bank3 object");
 
-    bank2.printBank();
+    
+    printSectionTitle("Using the addBanks method with 4 arguments");
 
 
-    //Test 2 -- printBankValue
-    cout << endl << endl << endl << "***** Test 2: printBankValue *****" << endl << endl
-        << "bank1:" << endl;
+    PiggyBank fourthBank = PiggyBank();
+    fourthBank.print("initial bank4 value");
 
-    bank1.printBank();
+    fourthBank = secondBank.addBanks(4, 27, 45, 7);
 
-    cout << endl << "Total: ";
+    secondBank.print("bank2 values after using addBanks method");
+    fourthBank.print("bank4 values after using addBanks method");
 
-    bank1.printBankValue();
+    
+    printSectionTitle("Using the addBanks method with PiggyBank object");
 
 
-    //Test 3 -- adding coins
-    cout << endl << endl << endl << "***** Test 3: addCoins Method *****" << endl << endl
-        << "3a: Adding 2 pennies, 47 nickels, 20 dimes, and 5 quarters to bank1 produces:"
-        << endl << endl;
+    PiggyBank fifthBank = PiggyBank();
 
-    //update bank 1: 2 pennies, 47 nickels, 20 dimes, and 5 quarters   and display
-    bank1.addCoins( 2, 47, 20, 5 );
+    firstBank.print("initial bank1 value");
+    secondBank.print("initial bank2 value");
+    fifthBank.print("initial bank5 value");
 
-    bank1.printBank();
+    fifthBank = firstBank.addBanks(secondBank);
 
-    cout << endl << "Total: ";
+    firstBank.print("bank1 values after using addBanks method");
+    secondBank.print("bank2 values after using addBanks method");
+    fifthBank.print("bank5 values after using addBanks method");
 
-    bank1.printBankValue();
 
+    printSectionTitle("Using the isEqual method with 4 arguments");
 
-    //update bank 2: 143 pennies, 9 nickels, 0 dimes, and 44 quarters   and display
-    bank2.addCoins( 143, 9, 0, 44 );
 
-    cout << endl << endl << "3b: Adding 143 pennies, 9 nickels, 0 dimes, and 44 quarters to bank2 produces:"
-        << endl << endl;
+    cout << "Test 1: ";
+    if (fourthBank.isEqual(27, 27, 45, 38)) {
+        cout << "Banks are equal" << endl;
+    } else {
+        cout << "Banks are not equal" << endl;
+    }
 
-    bank2.printBank();
+    cout << "Test 2: ";
+    if (fifthBank.isEqual(35, 34, 15, 7)) {
+        cout << "Banks are equal" << endl;
+    } else {
+        cout << "Banks are not equal" << endl;
+    }
 
-    cout << endl << "Total: ";
 
-    bank2.printBankValue();
+    printSectionTitle("Using the isEqual method with PiggyBank object");
 
 
-    //Test 4 -- adding pennies
-    cout << endl << endl << endl << "***** Test 4: addPennies Method *****" << endl << endl
-        << "4a: Adding 95 pennies to bank1:" << endl << endl;
+    cout << "Test 1: ";
+    if (secondBank.isEqual(fifthBank)) {
+        cout << "Banks are equal" << endl;
+    } else {
+        cout << "Banks are not equal" << endl;
+    }
 
-    //update bank 1: 95 pennies   and display
-    bank1.addPennies( 95 );
+    cout << "Test 2: ";
+    if (firstBank.isEqual(thirdBank)) {
+        cout << "Banks are equal" << endl;
+    } else {
+        cout << "Banks are not equal" << endl;
+    }
 
-    bank1.printBank();
+    
+    printSectionTitle("Current values in the bank objects");
 
-    cout << endl << "Total: ";
 
-    bank1.printBankValue();
+    firstBank.print("Bank1 object");
+    secondBank.print("Bank2 object");
+    thirdBank.print("Bank3 object");
+    fourthBank.print("Bank4 object");
+    fifthBank.print("Bank5 object");
 
 
-    cout << endl << endl << "4b: Adding -54 pennies to bank1:" << endl << endl;
+    printSectionTitle("Using the isLessThan method with 4 arguments");
 
-    //(try to) update bank 1: -54 pennies   and display
-    bank1.addPennies( -54 );
 
-    bank1.printBank();
+    cout << "Test 1: ";
+    if (firstBank.isLessThan(12, 33, 42, 108)) {
+        cout << "Bank1 is less than other bank" << endl;
+    } else {
+        cout << "Bank1 is not less than other bank" << endl;
+    }
 
-    cout << endl << "Total: ";
+    cout << "Test 2: ";
+    if (secondBank.isLessThan(3, 4, 70, 3)) {
+        cout << "Bank2 is less than other bank" << endl;
+    } else {
+        cout << "Bank2 is not less than other bank" << endl;
+    }
 
-    bank1.printBankValue();
 
+    printSectionTitle("Using the isLessThan method with PiggyBank object");
 
-    //Test 5 -- adding nickels
-    cout << endl << endl << endl << "***** Test 5: addNickels Method *****" << endl << endl
-        << "5a: Adding -12 nickels to bank2:" << endl << endl;
 
-    //(try to) update bank 2: -12 nickels   and display
-    bank2.addNickels( -12 );
+    cout << "Test 1: ";
+    if (thirdBank.isLessThan(fifthBank)) {
+        cout << "Bank3 is less than other bank" << endl;
+    } else {
+        cout << "Bank3 is not less than other bank" << endl;
+    }
 
-    bank2.printBank();
+    cout << "Test 2: ";
+    if (fourthBank.isLessThan(secondBank)) {
+        cout << "Bank4 is less than other bank" << endl;
+    } else {
+        cout << "Bank4 is not less than other bank" << endl;
+    }
 
-    cout << endl << "Total: ";
 
-    bank2.printBankValue();
+    printSectionTitle("Using the getCoin method");
 
+    cout << "bank1 contains " <<firstBank.getCoin(0) << " pennies" << endl;
+    cout << "bank2 contains " << secondBank.getCoin(1) << " nickels" << endl;
+    cout << "bank3 contains " << thirdBank.getCoin(2) << " dimes" << endl;
+    cout << "bank4 contains " << fourthBank.getCoin(3) << " quarters" << endl;
+    cout << "getCoin returned " << fifthBank.getCoin(4) << " with invalid index";
 
-    cout << endl << endl << "5b: Adding 17 nickels to bank2:" << endl << endl;
-
-    //update bank 2: 17 nickels   and display
-    bank2.addNickels(17);
-
-    bank2.printBank();
-
-    cout << endl << "Total: ";
-
-    bank2.printBankValue();
-
-
-
-    //Test 6 -- adding dimes
-    cout << endl << endl << endl << "***** Test 6: addDimes Method *****" << endl << endl
-        << "6a: Adding 157 dimes to bank2:" << endl << endl;
-
-    //update bank 2: 157 dimes   and display
-    bank2.addDimes( 157 );
-
-    bank2.printBank();
-
-    cout << endl << "Total: ";
-
-    bank2.printBankValue();
-
-    cout << endl << endl << "6b: Adding -37 dimes to bank2:" << endl << endl;
-
-    //(try to) update bank 2: -37 dimes   and display
-    bank2.addDimes( -37 );
-
-    bank2.printBank();
-
-    cout << endl << "Total: ";
-
-    bank2.printBankValue();
-
-
-
-    //Test 7 -- adding quarters
-    cout << endl << endl << endl << "***** Test 7: addQuarters Method *****" << endl << endl
-        << "7a: Adding 14 quarters to bank1: " << endl << endl;
-
-    //update bank 1: 14 quarters   and display
-    bank1.addQuarters( 14 );
-
-    bank1.printBank();
-
-    cout << endl << "Total: ";
-
-    bank1.printBankValue();
-
-
-    cout << endl << endl << "7b: Adding -45 quarters to bank1:" << endl << endl;
-
-    //(try to) update bank 1: -45 quarters   and display
-    bank1.addQuarters( -45 );
-
-    bank1.printBank();
-
-    cout << endl << "Total: ";
-
-    bank1.printBankValue();
-
-
-
-    //Test 8 -- bank value
-    cout << endl << endl << endl << "***** Test 8: Calculating the Bank Values *****" << endl << endl;
-
-    //Get the current value of both banks and calculate the total amount of money
-    double bank1value = bank1.calcBankValue(),
-        bank2value = bank2.calcBankValue();
-
-    double total = bank1value + bank2value;
-
-    //display the calculated total
-    cout << "$" << bank1value << " + $" << bank2value << " = $" << total << endl << endl;
-
-
-    //Test 9 -- empty the bank
-    cout << endl << endl << endl << "***** Test 9: Emptying the PiggyBanks *****" << endl << endl
-        << "It\'s time to empty the banks!" << endl << endl;
-
-    cout << endl << "9a: bank1 initially contains: " << endl << endl;
-
-    //display the current value of bank1 and the updated value after it has been emptied
-    bank1.printBank();
-
-    cout << endl << "Total: ";
-
-    bank1.printBankValue();
-
-    bank1.emptyTheBank();
-
-    cout << endl << endl << "bank1 now contains: " << endl << endl;
-
-    bank1.printBank();
-
-    cout << endl << "Total: ";
-
-    bank1.printBankValue();
-
-
-
-    cout << endl << endl << endl << "9b: bank2 initially contains: " << endl << endl;
-
-    //display the current value of bank2 and the updated value after it has been emptied
-    bank2.printBank();
-
-    cout << endl << "Total: ";
-
-    bank2.printBankValue();
-
-    bank2.emptyTheBank();
-
-    cout << endl << endl << "bank2 now contains: " << endl << endl;
-
-    bank2.printBank();
-
-    cout << endl << "Total: ";
-
-    bank2.printBankValue();
-
-
-
-    cout << endl << endl;
-
-return 0;
+    return 0;
 }//end of int main()
 
 
@@ -400,8 +319,52 @@ void PiggyBank::print(string label) {
     cout << label << endl;
     printBank();
     printBankValue();
+    cout << endl;
 }
 
-PiggyBank addBanks(int pennies, int nickels, int dimes, int quarters) {
-    
+PiggyBank PiggyBank::addBanks(int pennies, int nickels, int dimes, int quarters) {
+    return PiggyBank(numPennies + pennies, numNickels + nickels, numDimes + dimes, numQuarters + quarters);
+}
+
+PiggyBank PiggyBank::addBanks(PiggyBank otherBank) {
+    return PiggyBank(otherBank.getCoin(0) + numPennies, otherBank.getCoin(1) + numNickels, otherBank.getCoin(2) + numDimes, otherBank.getCoin(3) + numQuarters);
+}
+
+bool PiggyBank::isEqual(int pennies, int nickels, int dimes, int quarters) {
+    return (pennies == numPennies and nickels == numNickels and dimes == numDimes and quarters == numQuarters) ? true : false;
+}
+
+bool PiggyBank::isEqual(PiggyBank otherBank) {
+    return (numPennies == otherBank.getCoin(0) and numNickels == otherBank.getCoin(1) and numDimes == otherBank.getCoin(2) and numQuarters == otherBank.getCoin(3)) ? true : false;
+}
+
+bool PiggyBank::isLessThan(int pennies, int nickels, int dimes, int quarters) {
+    PiggyBank otherBank = PiggyBank(pennies, nickels, dimes, quarters);
+
+    return (calcBankValue() < otherBank.calcBankValue()) ? true : false;
+}
+
+bool PiggyBank::isLessThan(PiggyBank otherBank) {
+    return (calcBankValue() < otherBank.calcBankValue()) ? true : false;
+}
+
+int PiggyBank::getCoin(int coinIndex) {
+    if (coinIndex == 0)
+        return numPennies;
+    else if (coinIndex == 1)
+        return numNickels;
+    else if (coinIndex == 2)
+        return numDimes;
+    else if (coinIndex == 3)
+        return numQuarters;
+    else 
+        return -1;
+}
+
+void printSectionTitle(string title) {
+    cout << endl << endl
+         << "-------------------------------------------------"
+         << endl
+         << title
+         << endl << endl;
 }

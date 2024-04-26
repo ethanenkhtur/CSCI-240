@@ -5,9 +5,9 @@ Name: Ethan Enkhtur
 
 Section: 0001
 
-Due Date: 04/19/24
+Due Date: 04/26/24
 
-Purpose: Implement a class called PiggyBank that will be used to represent a collection of coins. Functionality will be added to the class so that coins can be added to the bank and output operations can be performed.
+Purpose: Implement a class called PiggyBank that will be used to represent a collection of coins. Functionality will be added to the class.
 ***************************************************************/
 
 

@@ -205,11 +205,20 @@ PiggyBank::PiggyBank() {
     emptyTheBank();
 }
 
+// Name: PiggyBank()
+// Use of method: an alternate constructor that initializes all data members, the coins, to provided arguments.
+// Arguments:   int pennies: number of pennies
+//              int nickels: number of nickels
+//              int dimes: number of dimes
+//              int quarters: number of quarters
 PiggyBank::PiggyBank(int pennies, int nickels, int dimes, int quarters) {
     emptyTheBank();
     addCoins(pennies, nickels, dimes, quarters);
 }
 
+// Name: PiggyBank()
+// Use of method: an alternate constructor that copies another PiggyBank instance.
+// Arguments:   PiggyBank& otherBank: a pointer to another PiggyBank object
 PiggyBank::PiggyBank(const PiggyBank &otherBank) {
     numPennies = otherBank.numPennies;
     numNickels = otherBank.numNickels;
@@ -315,6 +324,10 @@ double PiggyBank::calcBankValue() {
     return dollarValue;
 }
 
+// Name: print()
+// Use of method: printing a PiggyBank instance's information
+// Arguments:   string label: label for the bank
+// Value returned: none
 void PiggyBank::print(string label) {
     cout << label << endl;
     printBank();
@@ -322,6 +335,15 @@ void PiggyBank::print(string label) {
     cout << endl;
 }
 
+// Name: addBanks()
+// Use of method: Add coins from one PiggyBank instance to another and return a new instance with the updated properties.
+// Arguments:   int pennies: number of pennies from the other bank
+//              int nickels: number of nickels from the other bank
+//              int dimes: number of dimes from the other bank
+//              int quarters: number of quarters from the other bank
+//              OR
+//              PiggyBank otherBank: the other bank
+// Value returned: a new instance with updated properties
 PiggyBank PiggyBank::addBanks(int pennies, int nickels, int dimes, int quarters) {
     return PiggyBank(numPennies + pennies, numNickels + nickels, numDimes + dimes, numQuarters + quarters);
 }
@@ -330,6 +352,15 @@ PiggyBank PiggyBank::addBanks(PiggyBank otherBank) {
     return PiggyBank(otherBank.getCoin(0) + numPennies, otherBank.getCoin(1) + numNickels, otherBank.getCoin(2) + numDimes, otherBank.getCoin(3) + numQuarters);
 }
 
+// Name: isEqual()
+// Use of method: Checking if another bank coin amounts are equal to another's.
+// Arguments:   int pennies: number of pennies from the other bank
+//              int nickels: number of nickels from the other bank
+//              int dimes: number of dimes from the other bank
+//              int quarters: number of quarters from the other bank
+//              OR
+//              PiggyBank otherBank: the other bank
+// Value returned: bool: true if equal, otherwise false.
 bool PiggyBank::isEqual(int pennies, int nickels, int dimes, int quarters) {
     return (pennies == numPennies and nickels == numNickels and dimes == numDimes and quarters == numQuarters) ? true : false;
 }
@@ -338,6 +369,15 @@ bool PiggyBank::isEqual(PiggyBank otherBank) {
     return (numPennies == otherBank.getCoin(0) and numNickels == otherBank.getCoin(1) and numDimes == otherBank.getCoin(2) and numQuarters == otherBank.getCoin(3)) ? true : false;
 }
 
+// Name: isLessThan()
+// Use of method: Checking if another bank coin amounts are less than another's.
+// Arguments:   int pennies: number of pennies from the other bank
+//              int nickels: number of nickels from the other bank
+//              int dimes: number of dimes from the other bank
+//              int quarters: number of quarters from the other bank
+//              OR
+//              PiggyBank otherBank: the other bank
+// Value returned: bool: true if less, otherwise false.
 bool PiggyBank::isLessThan(int pennies, int nickels, int dimes, int quarters) {
     PiggyBank otherBank = PiggyBank(pennies, nickels, dimes, quarters);
 
@@ -348,6 +388,10 @@ bool PiggyBank::isLessThan(PiggyBank otherBank) {
     return (calcBankValue() < otherBank.calcBankValue()) ? true : false;
 }
 
+// Name: getCoin()
+// Use of method: getting the amount of whichever coin.
+// Arguments:   int coinIndex: indicator of which type of coin to get info on.
+// Value returned: the amount of specified coin
 int PiggyBank::getCoin(int coinIndex) {
     if (coinIndex == 0)
         return numPennies;
@@ -361,6 +405,10 @@ int PiggyBank::getCoin(int coinIndex) {
         return -1;
 }
 
+// Name: printSectionTitle()
+// Use of method: displays a title that helps separate the output produced by the program.
+// Arguments:   string title: title that is displayed
+// Value returned: none
 void printSectionTitle(string title) {
     cout << endl << endl
          << "-------------------------------------------------"

@@ -37,9 +37,17 @@ class Employee {
         const char * getIDnum();
         double getSalary();
 
-}
+};
 
-int main() {}
+int main() {
+    Employee first_employee = Employee("Ethan", "NIU4274", 53498.61);
+
+    cout << "The first Employee object:" << endl;
+    first_employee.display();
+    first_employee.increaseSalary(125.15);
+    first_employee.display();
+
+}
 
 Employee::Employee() {
     strcpy(name, "None");
@@ -48,7 +56,7 @@ Employee::Employee() {
 }
 
 Employee::Employee(const char newName[], const char id[], double newSalary) {
-    strcpy(newName, name);
+    strcpy(name, newName);
     setIDnum(id);
     setSalary(newSalary);
 }
@@ -57,7 +65,7 @@ void Employee::display() {
     cout << left << setw(30) << name
          << right << setw(10) << id
          << endl
-         << left << fixed << setprecision(2) << "$" << salary << endl;
+         << left << fixed << setprecision(2) << "$" << salary << endl << endl;
 }
 
 void Employee::increaseSalary(double raise) {
@@ -89,7 +97,7 @@ void Employee::setIDnum(const char updated_id[]) {
     } else if (!digits) {
         cout << "Error: new id is invalid - not last 4 digits. ID was not changed." << endl;
     } else {
-        strcopy(id, updated_id);
+        strcpy(id, updated_id);
     }
 }
 

@@ -5,9 +5,10 @@ Name: Ethan Enkhtur
 
 Section: 0001
 
-Due Date: 04/26/24
+Due Date: 05/02/24
 
-Purpose: Implement a class called PiggyBank that will be used to represent a collection of coins. Functionality will be added to the class.
+Purpose: Implement a class called Employee that will be used to hold the information for an
+employee.
 ***************************************************************/
 
 #include <iostream>
@@ -84,18 +85,27 @@ int main() {
     fifth_employee.display();
 }
 
+// Name: Employee()
+// Use of method: a default constructor that initializes all data members to default values.
+// Arguments:   none
 Employee::Employee() {
     strcpy(name, "None");
     setIDnum("ACB1234");
     salary = 0;
 }
 
+// Name: Employee()
+// Use of method: a alternate constructor that initializes all data members to given parameters.
+// Arguments:   none
 Employee::Employee(const char newName[], const char id[], double newSalary) {
     strcpy(name, newName);
     setIDnum(id);
     setSalary(newSalary);
 }
 
+// Name: display()
+// Use of method: Displays information about employee
+// Arguments:   none
 void Employee::display() {
     cout << left << setw(30) << name
          << right << setw(10) << id
@@ -103,6 +113,9 @@ void Employee::display() {
          << left << fixed << setprecision(2) << "$" << salary << endl << endl;
 }
 
+// Name: increaseSalary()
+// Use of method: a method that increases employee's salary by a valid given amount
+// Arguments:   double salary: amount to increase salary by.
 void Employee::increaseSalary(double raise) {
     if (raise > 0) 
         salary += raise;
@@ -110,6 +123,9 @@ void Employee::increaseSalary(double raise) {
         cout << "Error: salary increase is invalid - negative or 0.00. Salary was not changed." << endl << endl;
 }
 
+// Name: setIDnum()
+// Use of method: updates an employee's id to a valid new id.
+// Arguments:   const char updated_id[]: new id to update old id by.
 void Employee::setIDnum(const char updated_id[]) {
 
     bool digits = true, alphabetics = true;
@@ -136,6 +152,9 @@ void Employee::setIDnum(const char updated_id[]) {
     }
 }
 
+// Name: setSalary()
+// Use of method: a method that sets an employee's salary to a new valid amount.
+// Arguments:   double updated_salary: new updated salary.
 void Employee::setSalary(double updated_salary) {
     if (updated_salary > 0) {
         salary = updated_salary;
@@ -144,6 +163,10 @@ void Employee::setSalary(double updated_salary) {
     }
 }
 
+// Name: getName(), getIDnum(), getSalary()
+// Use of method: accessor methods that return the info in each data members.
+// Arguments:   none
+// Values returned: each appropriate data member.
 const char * Employee::getName() {
     return name;
 }
